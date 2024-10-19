@@ -1,15 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<!--  <img alt="Vue logo" src="./assets/logo.png">-->
+<!--  <HelloWorld msg="Welcome to Your Vue.js App"/>-->
+  <top-head></top-head>
+  <hr>
+  <br>
+  <yearly-movie></yearly-movie>
+  <hr>
+  <br>
+  <my-may-likw></my-may-likw>
+  <hr>
+  <br>
+  <chose-like></chose-like>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+// import HelloWorld from './components/HelloWorld.vue'
+import TopHead from "@/components/TopHead.vue";
+import YearlyMovie from "@/components/YearlyMovie.vue";
+import MyMayLikw from "@/components/MyMayLike.vue";
+import ChoseLike from "@/components/ChoseLike.vue";
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ChoseLike,
+    MyMayLikw,
+    YearlyMovie,
+    TopHead,
+    // HelloWorld
   }
 }
 </script>
