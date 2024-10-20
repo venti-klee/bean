@@ -20,13 +20,14 @@ export default {
 }
 </script>
 <template>
-  <div class="lyui-card">
+  <div class="lyui-card" style="background-color:rgba(255, 255, 255, 0.5) "  >
     <br>
-    <el-row style="background-color: #cbdfd9" >
+    <el-row  >
+<!--      style="background-color: #cbdfd9"-->
       <el-col :span="3" :offset="0"   >
         <h2 class="two">年度推荐电影名单</h2>
       </el-col>
-      <el-col :span="18" :offset="0">
+      <el-col :span="18" :offset="0" style="background-color:rgba(255, 255, 255, 0.5) " >
   <el-carousel :interval="4000" indicator-position="outside" height="360px"  >
     <el-carousel-item v-for="item in carouselist" :key="item">
       <el-row>

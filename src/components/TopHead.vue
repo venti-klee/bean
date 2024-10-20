@@ -1,7 +1,7 @@
 <template >
 
 
-  <div class="el-page-header" id="top_head" style="background-color: bisque ;height: 100px">
+  <div class="el-page-header" id="top_head" style="height: 150px;background-color: white">
     <el-row style="height: 150px">
       <el-col :span="12">
     <img src="../assets/bean_logo.png" alt="bean_logo"  style="height: 150px ;float: left;vertical-align: center">

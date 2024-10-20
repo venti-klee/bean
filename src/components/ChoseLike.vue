@@ -33,15 +33,17 @@
 
 <template>
 
-  <div style="background-color: white;height: 900px" >
+  <div style="height: 1000px;background-color:rgba(255, 255, 255, 0.5) " >
+<!--    background-color: white;-->
     <el-row >
-      <el-col :span="3" :offset="0"   >
+      <el-col :span="3" :offset="0"    >
         <h2 class="two">自由小料推荐区</h2>
         <br>
         <p>拌豆酱将根据您选择的标签展开推荐哦</p>
 
       </el-col>
-      <el-col :span="21" :offset="0" style="height: 600px; background-color: #cbdfd9">
+      <el-col :span="21" :offset="0" style="height: 900px;">
+<!--        background-color: #cbdfd9-->
         <el-row style="height: 400px;">
         <el-form >
           <el-form-item  prop="chose_tag">

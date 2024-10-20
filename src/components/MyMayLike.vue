@@ -1,8 +1,9 @@
 
 <template>
-<div style="background-color: white;height: 600px" >
+<div style="background-color:rgba(255, 255, 255, 0.5) ;height: 600px"   >
   <el-row>
-    <el-col :span="21" :offset="0" style="height: 600px; background-color:wheat">
+    <el-col :span="21" :offset="0" style="height: 600px">
+<!--      ; background-color:wheat-->
       <div>
         <el-row style="height: 300px;">
 <!--        <el-col :span="4" v-for="item in tabledata" :key="item.id"  >-->
