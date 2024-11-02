@@ -1,12 +1,9 @@
 <template >
 
-
-  <div class="el-page-header" id="top_head" style="height: 150px;background-color: white">
+  <div class="el-page-header" id="top_head" style="height: 150px;background-color: rgba(0,0,0,0)">
     <el-row style="height: 150px">
       <el-col :span="12">
-    <img src="../assets/bean_logo.png" alt="bean_logo"  style="height: 150px ;float: left;vertical-align: center">
-      {{ logo_slogen }}
-    <h1>{{ logo_name }}</h1>
+    <img src="../assets/bean_logo2.png" alt="bean_logo"  style="height: 150px ;float: left;vertical-align: center">
       </el-col>
       <el-col :span="4" :offset="8">
         <el-avatar :size="80" style="float: left;justify-content: center;align-items:center" >

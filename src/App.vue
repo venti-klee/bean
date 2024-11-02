@@ -1,33 +1,40 @@
-<template >
+<template>
 <!--  <img alt="Vue logo" src="./assets/logo.png">-->
 <!--  <HelloWorld msg="Welcome to Your Vue.js App"/>-->
+
   <div style="background:repeating-linear-gradient(to top,#cbdfd9,wheat);;">
-  <top-head></top-head>
-  <hr>
-  <br>
-  <yearly-movie></yearly-movie>
-  <hr>
-  <br>
-  <my-may-likw></my-may-likw>
-  <hr>
-  <br>
-  <chose-like></chose-like>
+    <index-view></index-view>
   </div>
+
+<!--<user-login></user-login>-->
+<!--  <user-interface></user-interface>-->
+<!--  <user-Cloud></user-Cloud>-->
+  <app-footer></app-footer>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
-import TopHead from "@/components/TopHead.vue";
-import YearlyMovie from "@/components/YearlyMovie.vue";
-import MyMayLikw from "@/components/MyMayLike.vue";
-import ChoseLike from "@/components/ChoseLike.vue";
+//import HelloWorld from './components/HelloWorld.vue'
+// import TopHead from "@/components/TopHead.vue";
+// import YearlyMovie from "@/components/YearlyMovie.vue";
+// import MyMayLikw from "@/components/MyMayLike.vue";
+// import ChoseLike from "@/components/ChoseLike.vue";
+import IndexView from "@/views/IndexView.vue";
+import AppFooter from "@/components/AppFooter.vue";
+// import UserLogin from "@/components/UserLogin.vue";
+//import UserInterface from "@/components/UserInterface.vue";
+//import UserCloud from "@/components/UserCloud.vue";
 export default {
   name: 'App',
   components: {
-    ChoseLike,
-    MyMayLikw,
-    YearlyMovie,
-    TopHead,
+    AppFooter,
+    IndexView,
+    //UserCloud,
+    //UserInterface,
+    //UserLogin,
+    // ChoseLike,
+    // MyMayLikw,
+    // YearlyMovie,
+    // TopHead,
     // HelloWorld
   }
 }
