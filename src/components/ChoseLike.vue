@@ -149,7 +149,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* ... 原有样式 */
 .slider-demo-block {
   min-width: 600px;
@@ -163,8 +163,6 @@ export default {
 .two {
   margin: 0 auto;
   height: 300px;
-  writing-mode: vertical-lr; /* 从左向右 从右向左是 writing-mode: vertical-rl; */
-  writing-mode: tb-lr; /* IE浏览器的从左向右 从右向左是 writing-mode: tb-rl； */
 }
 
 /* 自定义加载样式 */

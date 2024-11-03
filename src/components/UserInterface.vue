@@ -50,7 +50,7 @@ export default {
 
 </template>
 
-<style>
+<style scoped>
 small {
   background:white;
   padding-left: 8%;

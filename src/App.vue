@@ -2,9 +2,7 @@
 <!--  <img alt="Vue logo" src="./assets/logo.png">-->
 <!--  <HelloWorld msg="Welcome to Your Vue.js App"/>-->
 <!--  background:repeating-linear-gradient(to top,#cbdfd9,wheat);-->
-  <div >
-    <index-view></index-view>
-  </div>
+    <router-view></router-view>
 
 <!--<user-login></user-login>-->
 <!--  <user-interface></user-interface>-->
@@ -18,7 +16,7 @@
 // import YearlyMovie from "@/components/YearlyMovie.vue";
 // import MyMayLikw from "@/components/MyMayLike.vue";
 // import ChoseLike from "@/components/ChoseLike.vue";
-import IndexView from "@/views/IndexView.vue";
+// import IndexView from "@/views/IndexView.vue";
 // import AppFooter from "@/components/AppFooter.vue";
 // import UserLogin from "@/components/UserLogin.vue";
 //import UserInterface from "@/components/UserInterface.vue";
@@ -27,7 +25,7 @@ export default {
   name: 'App',
   components: {
     // AppFooter,
-    IndexView,
+    // IndexView,
     //UserCloud,
     //UserInterface,
     //UserLogin,

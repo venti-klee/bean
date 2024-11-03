@@ -15,6 +15,7 @@ export default {
     onSubmit () {
       console.log('submit!')
       alert("2222")
+      this.$router.push('index')
       //this.$router.push('http://www.baidu.com')
       // 这里添加登录逻辑，例如验证用户输入
       //if (this.account === 'user001' && this.password === '123') {
@@ -47,7 +48,7 @@ export default {
 
 </template>
 
-<style>
+<style scoped>
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;

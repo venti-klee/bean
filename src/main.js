@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
-import router from 'vue-router'; // 确保路径正确
+import router from './router.config'; // 确保路径正确
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 import axios from 'axios';
 
