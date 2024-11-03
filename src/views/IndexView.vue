@@ -1,18 +1,22 @@
 <template >
-    <div style="background:repeating-linear-gradient(to top,#cbdfd9,wheat);;">
+    <div>
       <div class="home-view">
         <page-content></page-content>
         <video-background>
         </video-background>
       </div>
-
+  <div class="content-container" >
     <yearly-movie></yearly-movie>
     <hr>
     <br>
-    <my-may-likw></my-may-likw>
+<!--    <my-may-likw></my-may-likw>-->
+<!--    <hr>-->
+<!--    <br>-->
+    <my-may-like2></my-may-like2>
     <hr>
     <br>
     <chose-like></chose-like>
+    </div>
     </div>
 </template>
 
@@ -21,15 +25,17 @@
 //import TopHead from "@/components/TopHead.vue";
 import YearlyMovie from "@/components/YearlyMovie.vue";
 import ChoseLike from "@/components/ChoseLike.vue";
-import MyMayLikw from "@/components/MyMayLike.vue";
+// import MyMayLikw from "@/components/MyMayLike.vue";
 import VideoBackground from "@/components/VideoBackground.vue";
 import PageContent from "@/components/PageContent.vue";
+import MyMayLike2 from "@/components/MyMayLike2.vue";
 export default {
   name: 'IndeView',
   components: {
+    MyMayLike2,
     PageContent,
     VideoBackground,
-    MyMayLikw,
+    // MyMayLikw,
     ChoseLike,
     YearlyMovie,
     //TopHead,
@@ -51,4 +57,13 @@ export default {
   width: 100%;
   height: 100%;
 }
+.content-container {
+  width: 80%;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+}
+
 </style>

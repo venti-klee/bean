@@ -1,55 +1,127 @@
-<script xmlns:el-col="http://www.w3.org/1999/html">
-export default {
-  name: "YearlyMovie",
-  data(){
-    return{
-      carouselist:[
-        {id:"1291543",name:"功夫",summary:"1940年代的上海，自小受尽欺辱的街头混混阿星（周星驰）为了能出人头地，可谓窥见机会的缝隙就往里钻，今次他盯上行动日益猖獗的黑道势力“斧头帮”，想借之大名成就大业。阿星假冒“斧头帮”成员试图在一个叫“猪笼城寨”的地方对居民敲诈，不想引来真的“斧头帮”与“猪笼城寨”居民的恩怨。“猪笼城寨”原是藏龙卧虎之处，居民中有许多身怀绝技者（元华、梁小龙等），他们隐藏于此本是为远离江湖恩怨，不想麻烦自动上身，躲都躲不及。而在观战正邪两派的斗争中，阿星逐渐领悟功夫的真谛。"
-        ,img:"https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2219011938.webp"
-        ,genre:"喜剧/动作/犯罪/奇幻"},
-        {id:"26747919",name:"749局",summary:"故事发生在近未来，因为未知神秘生物的出现，导致整个城市面临前所未有的危机。一桩被隐藏多年的秘密计划浮出水面。少年马山（王俊凯 饰）被带入749局，进入层层迷宫，开启一程冒险之旅，并在这一旅程中完成了一次自我的成长与救赎。",
-          img:"https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2913450214.webp",
-        genre: "动作 / 科幻 / 冒险"},
-        {id:"36689857",name:"荒野机器人",summary: "影片改编自皮特·布朗的同名畅销书，聚焦机器人萝斯（露皮塔·尼永奥 Lupita Nyong'o 配音）的冒险之旅。她因一场意外漂流到了孤岛，偏离了程序预设的发展轨道，不得不面对险恶的生存环境，并试图与充满戒备和敌意的野生动物建立关系。随着萝斯遇到了一只小灰雁（基特·康纳 Kit Connor 配音）并成为了他的“妈妈”，她逐渐在这座荒岛中找到了归属感。被定义好的编程即将被打破，一段关乎爱的心灵故事即将展开。",
-          img:"https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2913022141.webp",
-          genre: "科幻 / 动画 / 冒险"}
 
-      ]
-    }
-  }
-}
-</script>
 <template>
-  <div class="lyui-card" style="background-color:rgba(255, 255, 255, 0.5) "  >
+  <div class="lyui-card" >
     <br>
-    <el-row  >
-<!--      style="background-color: #cbdfd9"-->
-      <el-col :span="3" :offset="0"   >
-        <h2 class="two">年度推荐电影名单</h2>
+    <el-row>
+      <el-col :span="3" :offset="0">
+        <h2 class="two">经典热播展示区</h2>
       </el-col>
-      <el-col :span="18" :offset="0" style="background-color:rgba(255, 255, 255, 0.5) " >
-  <el-carousel :interval="4000" indicator-position="outside" height="360px"  >
-    <el-carousel-item v-for="item in carouselist" :key="item">
-      <el-row>
-        <el-col :span="12">
-          <el-image :src="item.img" height="350px" fit="cover" ></el-image>
-          <h3 style="justify-content: center">{{ item.name }}</h3></el-col>
-        <el-col :span="12">
-          <p style="justify-content: center">{{item.name}}</p>
-          <hr>
-          <p>{{item.summary}}</p>
-          <el-tag>{{item.genre}}</el-tag>
-        </el-col>
-
-      </el-row>
-    </el-carousel-item>
-  </el-carousel>
+      <el-col :span="18" :offset="0" >
+        <el-carousel :interval="4000" indicator-position="outside" height="400px">
+          <el-carousel-item v-for="item in carouselist" :key="item.movieID">
+            <el-row style="height:100%;">
+              <el-col :span="12" class="image-col">
+                <div class="image-container">
+                  <el-image :src="item.img" fit="cover" class="movie-image"></el-image>
+<!--                  <h3 class="movie-title">{{ item.name }}</h3>-->
+                </div>
+              </el-col>
+              <el-col :span="12" class="text-col">
+                <div class="text-content">
+                  <p class="movie-name">{{ item.name }}</p>
+                  <hr>
+                  <p class="movie-summary">{{ truncateSummary(item.summary) }}</p>
+                  <el-tag>{{ item.genre }}</el-tag>
+                  <br>
+                  <br>
+                  <el-button  type="primary" @click="navigateToDouban(item.doubanaddress)">查看豆瓣页面</el-button>
+                </div>
+              </el-col>
+            </el-row>
+          </el-carousel-item>
+        </el-carousel>
       </el-col>
     </el-row>
   </div>
 </template>
+<script>
+import axios from "axios";
+import cheerio from "cheerio";
+
+export default {
+  name: "YearlyMovie",
+  data() {
+    return {
+      carouselist: [
+        {
+          "movieID": "1292001",
+          "img":"https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2914698334.webp",
+          "name": "海上钢琴师 La leggenda del pianista sull'oceano",
+          "director": "朱塞佩·托纳多雷",
+          "actor": "蒂姆·罗斯,普路特·泰勒·文斯,比尔·努恩,梅兰尼·蒂埃里,阿尔贝托·巴斯克斯",
+          "genre": "剧情,音乐",
+          "tag": "经典,海上钢琴师,音乐,人生,意大利,钢琴,剧情,意大利电影",
+          "summary": "本片讲述了一个钢琴天才传奇的一生。1900年，Virginian号豪华邮轮上，一个孤儿被遗弃在头等舱，由船上的水手抚养长大，取名1900（蒂姆•罗斯饰）。1900慢慢长大，显示出了无师自通的非凡钢琴天赋，在船上的乐队表演钢琴，每个听过他演奏的人，都被深深打动。爵士乐鼻祖杰尼听说了1900的高超技艺，专门上船和他比赛，最后自叹弗如，黯然离去。可惜，这一切的事情都发生在海上，1900从来不愿踏上陆地，直到有一天，他爱上了一个女孩，情愫在琴键上流淌。他会不会为了爱情，踏上陆地开始新的生活，用他的琴声惊艳世界？他将怎样谱写自己非凡的人生。",
+          "rate": "9.2",
+          "popular": "498660",
+          "cluster": "0",
+          "flag": "1",
+          "doubanaddress": "https://movie.douban.com/subject/1292001/"
+        },
+        {
+          "movieID": "1292052",
+          "img":"https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2914698334.webp",
+          "name": "肖申克的救赎 The Shawshank Redemption",
+          "director": "弗兰克·德拉邦特",
+          "actor": "蒂姆·罗宾斯,摩根·弗里曼,鲍勃·冈顿,威廉姆·赛德勒,克兰西·布朗,吉尔·贝罗斯,马克·罗斯顿,詹姆斯·惠特摩,杰弗里·德曼,拉里·布兰登伯格,尼尔·吉恩托利,布赖恩·利比,大卫·普罗瓦尔,约瑟夫·劳格诺,祖德·塞克利拉",
+          "genre": "剧情,犯罪",
+          "tag": "经典,励志,信念,自由,美国,人性,剧情,人生",
+          "summary": "20世纪40年代末，小有成就的青年银行家安迪（蒂姆·罗宾斯TimRobbins饰）因涉嫌杀害妻子及她的情人而锒铛入狱。在这座名为肖申克的监狱内，希望似乎虚无缥缈，终身监禁的惩罚无疑注定了安迪接下来灰暗绝望的人生。未过多久，安迪尝试接近囚犯中颇有声望的瑞德（摩根·弗里曼MorganFreeman饰），请求对方帮自己搞来小锤子。以此为契机，二人逐渐熟稔，安迪也仿佛在鱼龙混杂、罪恶横生、黑白混淆的牢狱中找到属于自己的求生之道。他利用自身的专业知识，帮助监狱管理层逃税、洗黑钱，同时凭借与瑞德的交往在犯人中间也渐渐受到礼遇。表面看来，他已如瑞德那样对那堵高墙从憎恨转变为处之泰然，但是对自由的渴望仍促使他朝着心中的希望和目标前进。而关于其罪行的真相，似乎更使这一切朝前推进了一步……本片根据著名作家斯蒂芬·金（StephenEdwinKing）的...",
+          "rate": "9.6",
+          "popular": "688378",
+          "cluster": "0",
+          "flag": "1",
+          "doubanaddress": "https://movie.douban.com/subject/1292052/"
+        }
+      ]
+    };
+  },
+  methods: {
+    async fetchMovies() {
+      try {
+        const response = await axios.get('https://apifoxmock.com/m1/5395920-5069443-default/yearlymovie');
+        this.carouselist = await Promise.all(response.data.map(async (movie) => {
+          const movieData = { ...movie };
+          movieData.doubanaddress = await this.fetchMoviePoster(movie.movieID);
+          return movieData;
+        }));
+      } catch (error) {
+        console.error('Error fetching movies:', error);
+      }
+    },
+    async fetchMoviePoster(movieID) {
+      try {
+        const response = await axios.get(`https://movie.douban.com/subject/${movieID}/`);
+        const $ = cheerio.load(response.data);
+        const posterUrl = $('div#mainpic img').attr('src');
+        console.log(posterUrl);
+        return "https://movie.douban.com/subject/${movieID}/"; // 返回豆瓣页面地址
+      } catch (error) {
+        console.error('Error fetching movie poster:', error);
+        return '';
+      }
+    },
+    truncateSummary(summary) {
+      if (summary.length > 100) {
+        return summary.substring(0, 100) + '...';
+      }
+      return summary;
+    },
+    navigateToDouban(url) {
+      window.open(url, '_blank');
+    }
+  },
+  created() {
+    this.fetchMovies();
+  }
+};
+</script>
+
 
 <style scoped>
+.carouselback{
+  background:repeating-linear-gradient(to top,#cbdfd9,wheat);
+}
 .el-carousel__item h3 {
   color: #475669;
   opacity: 0.75;
@@ -58,28 +130,87 @@ export default {
   text-align: center;
 }
 
-.el-carousel__item:nth-child(2n) {
-  background-color: white;
+.two {
+  margin: 0 auto;
+  height: 300px;
+  writing-mode: vertical-lr; /*从左向右 从右向左是 writing-mode: vertical-rl;*/
+  writing-mode: tb-lr; /*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
 }
 
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: white;
-}
-.two{
-margin: 0 auto;
-height: 300px;
-writing-mode: vertical-lr;/*从左向右 从右向左是 writing-mode: vertical-rl;*/
-writing-mode: tb-lr;/*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
-}
 .lyui-card {
   margin-bottom: 15px;
   border-radius: 2px;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.5);
+  background:repeating-linear-gradient(to top,#cbdfd9,wheat);
   box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, .05);
   -webkit-box-shadow: #d4d2d2 0px 0px 10px;
   -moz-box-shadow: #d4d2d2 0px 0px 10px;
 }
 
+.image-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.image-container {
+  position: relative;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.movie-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  background:repeating-linear-gradient(to top,#cbdfd9,wheat) ;
+}
+
+.movie-title {
+  position: absolute;
+  bottom: 10px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: 100%;
+}
+
+.text-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+}
+
+.text-content {
+  text-align: center;
+  width: 80%;
+}
+
+.movie-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.movie-summary {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
 
 body {
   padding: 120px;
@@ -100,98 +231,4 @@ body {
   text-align: center;
   background-color: #cde;
 }
-
-.line {
-  /* 结合外层元素的相对定位 */
-  position: absolute;
-}
-
-.line:nth-child(1) {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  /* 加上渐变效果，方可形成拖尾效果 */
-  background: linear-gradient(90deg, transparent, orange);
-  animation: animate1 8s linear infinite;
-}
-
-/* 分别控制其上下左右的定位距离，从而形成线条跟随效果 */
-@keyframes animate1 {
-  0% {
-    left: -100%;
-  }
-
-  50%,
-  100% {
-    left: 100%;
-  }
-}
-
-.line:nth-child(2) {
-  top: -100%;
-  right: 0;
-  width: 3px;
-  height: 100%;
-  background: linear-gradient(180deg, transparent, red);
-  animation: animate2 8s linear infinite;
-  /* 注意要加上延时触发动画效果，这样线条才会依次触发 */
-  animation-delay: 2s;
-}
-
-@keyframes animate2 {
-  0% {
-    top: -100%;
-  }
-
-  50%,
-  100% {
-    top: 100%;
-  }
-}
-
-.line:nth-child(3) {
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  background: linear-gradient(270deg, transparent, green);
-  animation: animate3 8s linear infinite;
-  animation-delay: 4s;
-}
-
-@keyframes animate3 {
-  0% {
-    right: -100%;
-    height: 3px;
-  }
-
-  50%,
-  100% {
-    height: 2px;
-    right: 100%;
-  }
-}
-
-.line:nth-child(4) {
-  bottom: -100%;
-  left: 0;
-  width: 3px;
-  height: 100%;
-  background: linear-gradient(360deg, transparent, #3a86ff);
-  animation: animate4 8s linear infinite;
-  animation-delay: 6s;
-}
-
-@keyframes animate4 {
-  0% {
-    bottom: -100%;
-  }
-
-  50%,
-  100% {
-    bottom: 100%;
-  }
-}
-
 </style>
-

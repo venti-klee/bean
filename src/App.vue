@@ -1,8 +1,8 @@
 <template>
 <!--  <img alt="Vue logo" src="./assets/logo.png">-->
 <!--  <HelloWorld msg="Welcome to Your Vue.js App"/>-->
-
-  <div style="background:repeating-linear-gradient(to top,#cbdfd9,wheat);;">
+<!--  background:repeating-linear-gradient(to top,#cbdfd9,wheat);-->
+  <div >
     <index-view></index-view>
   </div>
 
