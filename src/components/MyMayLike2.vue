@@ -14,7 +14,7 @@
                       <p>{{ getSummary(item) }}</p>
                     </div>
                   </div>
-                  <el-image :src="item.img" fit="contain" style="height: 80%; padding: 0" @mouseover="hoverItem = item" @mouseleave="hoverItem = null" ></el-image>
+                  <el-image :src="item.img" fit="contain" style="height: 280px; padding: 0" @mouseover="hoverItem = item" @mouseleave="hoverItem = null" ></el-image>
                   <div class="el-card__footer" style="margin: 0;padding: 0">
                     <el-rate style="margin: 0"
                              v-model="item.convertedRate"

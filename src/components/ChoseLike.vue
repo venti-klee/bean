@@ -31,28 +31,15 @@
             </el-form-item>
           </el-form>
         </el-row>
-        <el-row v-if="loading" style="text-align: center; margin-top: 50px;">
-          <div style="height: 100%; display: flex; justify-content: center; align-items: center;">
-            <img src="path/to/your/loading-image.png" alt="Loading..." style="max-width: 100%; max-height: 100%;">
-          </div>
-        </el-row>
-        <el-row v-else>
-          <el-col :span="4" v-for="item in recommendations" :key="item.id">
-            <el-card :body-style="{ padding: '0px' }" shadow="hover" style="height: 280px;">
-              <div class="card-header">
+        <el-row v-loading="loading" element-loading-text="加载中..."  style="height: 100%;">
+          <el-col :span="6" v-for="item in recommendations" :key="item.id">
+            <el-card :body-style="{ padding: '0px' }" shadow="hover" style="height: 400px;" @click="openDoubanLink(item)">
+              <div class="card-header" style="height: 40px">
                 <h4>{{ item.name }}</h4>
               </div>
-              <el-image :src="item.img" fit="cover" style="height: 180px; padding: 0"></el-image>
+              <el-image :src="item.img" fit="cover" style="height: 240px; padding: 0"></el-image>
               <div class="el-card__footer" style="margin: 0; padding: 0">
-                <el-rate
-                    style="margin: 0"
-                    :value="item.rate"
-                    disabled
-                    show-score
-                    text-color="#ff9900"
-                    score-template="3.7 "
-                ></el-rate>
-                <p>{{ item.name }}</p>
+                <p style="font-size: 10px">{{item.summary.slice(0,80)+"..."}}</p>
               </div>
             </el-card>
           </el-col>
@@ -114,12 +101,14 @@ export default {
         { label: '记录', key: 38 }
       ]
     };
+
   },
+
   computed: {
     contentHeight() {
       // 计算推荐卡片的高度总和
-      const cardHeight = 280; // 每个卡片的高度
-      const cardsPerRow = 6; // 每行显示的卡片数量
+      const cardHeight = 400; // 每个卡片的高度
+      const cardsPerRow = 4; // 每行显示的卡片数量
       const numRows = Math.ceil(this.recommendations.length / cardsPerRow); // 总行数
       const totalCardHeight = numRows * cardHeight; // 所有卡片的总高度
 
@@ -131,6 +120,7 @@ export default {
     }
   },
   methods: {
+
     async fetchRecommendations() {
       this.loading = true;
 
@@ -149,8 +139,13 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+    openDoubanLink(item) {
+      const doubanUrl = `https://movie.douban.com/subject/${item.movieID}/`;
+      window.open(doubanUrl, '_blank');
     }
-  }
+  },
+
 };
 </script>
 
@@ -170,5 +165,10 @@ export default {
   height: 300px;
   writing-mode: vertical-lr; /* 从左向右 从右向左是 writing-mode: vertical-rl; */
   writing-mode: tb-lr; /* IE浏览器的从左向右 从右向左是 writing-mode: tb-rl； */
+}
+
+/* 自定义加载样式 */
+.example-showcase .el-loading-mask {
+  z-index: 9;
 }
 </style>

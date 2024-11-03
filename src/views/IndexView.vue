@@ -18,6 +18,7 @@
     <chose-like></chose-like>
     </div>
     </div>
+  <app-footer></app-footer>
 </template>
 
 <script>
@@ -29,9 +30,11 @@ import ChoseLike from "@/components/ChoseLike.vue";
 import VideoBackground from "@/components/VideoBackground.vue";
 import PageContent from "@/components/PageContent.vue";
 import MyMayLike2 from "@/components/MyMayLike2.vue";
+import AppFooter from "@/components/AppFooter.vue";
 export default {
   name: 'IndeView',
   components: {
+    AppFooter,
     MyMayLike2,
     PageContent,
     VideoBackground,

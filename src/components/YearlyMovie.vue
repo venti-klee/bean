@@ -36,7 +36,7 @@
 </template>
 <script>
 import axios from "axios";
-import cheerio from "cheerio";
+// import cheerio from "cheerio";
 
 export default {
   name: "YearlyMovie",
@@ -91,11 +91,11 @@ export default {
     },
     async fetchMoviePoster(movieID) {
       try {
-        const response = await axios.get(`https://movie.douban.com/subject/${movieID}/`);
-        const $ = cheerio.load(response.data);
-        const posterUrl = $('div#mainpic img').attr('src');
-        console.log(posterUrl);
-        return "https://movie.douban.com/subject/${movieID}/"; // 返回豆瓣页面地址
+        // const response = await axios.get(`https://movie.douban.com/subject/${movieID}/`);
+        // const $ = cheerio.load(response.data);
+        //const posterUrl = $('div#mainpic img').attr('src');
+        //console.log(posterUrl);
+        return "https://movie.douban.com/subject/"+movieID+"/"; // 返回豆瓣页面地址
       } catch (error) {
         console.error('Error fetching movie poster:', error);
         return '';
