@@ -14,8 +14,16 @@ export default {
   methods:{
     onSubmit () {
       console.log('submit!')
-      alert("2222")
-      this.$router.push('index')
+      // 这里添加登录逻辑，例如验证用户输入
+      if (this.account === 'user001' && this.password === '123') {
+        // 登录成功，存储用户信息到 localStorage
+        localStorage.setItem('user', JSON.stringify({ name: this.account }));
+        this.$router.push({ name: 'index' });
+      } else {
+        alert('无效的凭据');
+      }
+      // alert("2222")
+      // this.$router.push('index')
       //this.$router.push('http://www.baidu.com')
       // 这里添加登录逻辑，例如验证用户输入
       //if (this.account === 'user001' && this.password === '123') {
@@ -38,11 +46,10 @@ export default {
   <h4>在这里登录您的账户！</h4>
   <form @submit.prevent=onSubmit>
     <p>账号：</p>
-    <input type="account" />
+    <input v-model="account" type="text" placeholder="请输入账号" required />
     <p>密码：</p>
-    <input type="password" />
+    <input v-model="password" type="password" placeholder="请输入密码" required />
     <button type="submit">登录
-<!--      <router-link :to="{path:'/test',query: {userid: id}}">跳转</router-link>-->
     </button>
   </form>
 
