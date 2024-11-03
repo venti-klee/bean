@@ -74,6 +74,7 @@ export default {
   methods: {
     async fetchMovies() {
       try {
+        //http://192.168.43.21:5000/Filtering
         const response = await axios.get('https://apifoxmock.com/m1/5395920-5069443-default/MyMayLike');
         this.movies = response.data.map(item => ({
           ...item,
