@@ -57,7 +57,7 @@
 import axios from 'axios';
 
 export default {
-  name: "MyMayLike",
+  name: "MyMayLike3",
   data() {
     return {
       hoverItem: null,
@@ -74,8 +74,12 @@ export default {
   methods: {
     async fetchMovies() {
       try {
-        //http://192.168.43.21:5000/Filtering
-        const response = await axios.get('https://apifoxmock.com/m1/5395920-5069443-default/MyMayLike');
+        const userId = JSON.parse(localStorage.getItem('user')).id; // 获取用户ID
+        const response = await axios.get('http://192.168.43.21:8927/Filtering', {
+          params: {
+            user_id: userId
+          }
+        });
         this.movies = response.data.map(item => ({
           ...item,
           convertedRate: item.rate / 2
@@ -109,7 +113,7 @@ export default {
       this.updateDisplayedMovies();
     },
     openDoubanLink(item) {
-      const doubanUrl = `https://movie.douban.com/subject/${item.movieID}/`;
+      const doubanUrl = `https://movie.douban.com/subject/${item.id}/`;
       window.open(doubanUrl, '_blank');
     }
   }

@@ -12,16 +12,44 @@ export default {
     };
   },
   methods:{
-    onSubmit () {
-      console.log('submit!')
-      // 这里添加登录逻辑，例如验证用户输入
-      if (this.account === 'user001' && this.password === '123') {
-        // 登录成功，存储用户信息到 localStorage
-        localStorage.setItem('user', JSON.stringify({ name: this.account }));
-        this.$router.push({ name: 'index' });
-      } else {
-        alert('无效的凭据');
-      }
+ onSubmit () {
+        console.log('submit!')
+
+
+
+
+
+        if (this.account!==""&&this.password!=='') {
+          //this.account === 'user001' && this.password === '123'
+          // 假设用户ID为1，实际情况下需要从后端获取真实的用户ID
+          //const userId = 25;
+          // 从用户名中提取用户 ID
+          const userIdMatch = this.account.match(/^user(\d+)$/);
+          if (userIdMatch) {
+            const userId = parseInt(userIdMatch[1], 10); // 提取并转换为整数
+
+            // 在这里，你通常会发送请求到后端验证用户
+            // 但在这个示例中，我们假设验证已经通过，并直接存储用户信息
+            const user = {
+              name: this.account,
+              id: userId
+            };
+
+            // 将用户信息存储到 localStorage
+            localStorage.setItem('user', JSON.stringify(user));
+
+            // 路由跳转到 'index' 页面
+            this.$router.push({ name: 'index' });
+          } else {
+            // 用户名格式不正确
+            alert('用户名格式应为 "user+数字"');
+          }
+          // const userId = JSON.parse(localStorage.getItem('user')).id; // 获取用户ID
+          // localStorage.setItem('user', JSON.stringify({ name: this.account, id: userId }));
+          // this.$router.push({ name: 'index' });
+        } else {
+          alert('无效的凭据');
+        }
       // alert("2222")
       // this.$router.push('index')
       //this.$router.push('http://www.baidu.com')

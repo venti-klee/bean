@@ -48,7 +48,8 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-      <el-avatar :size="40" :src="user_picture">
+     <el-avatar :size="40" >
+       <!-- :src="user_picture"-->
         <el-icon><UserFilled /></el-icon>
       </el-avatar>
     </div>

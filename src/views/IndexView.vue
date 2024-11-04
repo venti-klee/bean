@@ -12,7 +12,14 @@
 <!--    <my-may-likw></my-may-likw>-->
 <!--    <hr>-->
 <!--    <br>-->
+    <my-may-like3></my-may-like3>
+    <hr>
+    <br>
+
     <my-may-like2></my-may-like2>
+    <hr>
+    <br>
+    <chose-like-2></chose-like-2>
     <hr>
     <br>
     <chose-like></chose-like>
@@ -26,20 +33,24 @@
 //import TopHead from "@/components/TopHead.vue";
 import YearlyMovie from "@/components/YearlyMovie.vue";
 import ChoseLike from "@/components/ChoseLike.vue";
+import ChoseLike2 from "@/components/ChoseLike2.vue";
 // import MyMayLikw from "@/components/MyMayLike.vue";
 import VideoBackground from "@/components/VideoBackground.vue";
 import PageContent from "@/components/PageContent.vue";
 import MyMayLike2 from "@/components/MyMayLike2.vue";
 import AppFooter from "@/components/AppFooter.vue";
+import MyMayLike3 from "@/components/MyMayLike3.vue";
 export default {
   name: 'IndeView',
   components: {
+    MyMayLike3,
     AppFooter,
     MyMayLike2,
     PageContent,
     VideoBackground,
     // MyMayLikw,
     ChoseLike,
+    ChoseLike2,
     YearlyMovie,
     //TopHead,
   }
