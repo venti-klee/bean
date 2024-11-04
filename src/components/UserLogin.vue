@@ -12,16 +12,16 @@ export default {
     };
   },
   methods:{
-    onSubmit () {
-      console.log('submit!')
-      // 这里添加登录逻辑，例如验证用户输入
-      if (this.account === 'user001' && this.password === '123') {
-        // 登录成功，存储用户信息到 localStorage
-        localStorage.setItem('user', JSON.stringify({ name: this.account }));
-        this.$router.push({ name: 'index' });
-      } else {
-        alert('无效的凭据');
-      }
+ onSubmit () {
+        console.log('submit!')
+        if (this.account === 'user001' && this.password === '123') {
+          // 假设用户ID为1，实际情况下需要从后端获取真实的用户ID
+          const userId = 1;
+          localStorage.setItem('user', JSON.stringify({ name: this.account, id: userId }));
+          this.$router.push({ name: 'index' });
+        } else {
+          alert('无效的凭据');
+        }
       // alert("2222")
       // this.$router.push('index')
       //this.$router.push('http://www.baidu.com')

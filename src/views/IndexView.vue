@@ -12,6 +12,10 @@
 <!--    <my-may-likw></my-may-likw>-->
 <!--    <hr>-->
 <!--    <br>-->
+<!--    <my-may-like3></my-may-like3>-->
+<!--    <hr>-->
+<!--    <br>-->
+
     <my-may-like2></my-may-like2>
     <hr>
     <br>
@@ -31,9 +35,11 @@ import VideoBackground from "@/components/VideoBackground.vue";
 import PageContent from "@/components/PageContent.vue";
 import MyMayLike2 from "@/components/MyMayLike2.vue";
 import AppFooter from "@/components/AppFooter.vue";
+// import MyMayLike3 from "@/components/MyMayLike3.vue";
 export default {
   name: 'IndeView',
   components: {
+    // MyMayLike3,
     AppFooter,
     MyMayLike2,
     PageContent,
