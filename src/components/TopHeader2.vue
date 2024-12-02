@@ -79,8 +79,9 @@ export default {
         this.user_name = userInfo.name;
       }
     },
-    navigateTo(routeName) {
-      this.$router.push({ name: routeName });
+    navigateTo() {
+      // this.$router.push({ name: routeName });
+      this.$router.push({ name: 'user' });
     },
     logout() {
       // 处理退出登录的逻辑，例如清除用户信息等

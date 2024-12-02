@@ -124,15 +124,19 @@ export default {
     async fetchRecommendations() {
       this.loading = true;
 
-      console.log(this.checkboxGroup1.slice());
+      console.log(this.checkboxGroup1);
       console.log(this.value);
 
       try {
+        const selectedTagsString = this.checkboxGroup1.join(',');
+        console.log(selectedTagsString); // 输出类似于 "喜剧,爱情,动作"
         const userId = JSON.parse(localStorage.getItem('user')).id; // 获取用户ID
-        const response = await axios.post('http://192.168.43.21:8927/Recommendations', {
-          user_id: userId,
-          tags: this.checkboxGroup1.slice(),
-          personalizationLevel: this.value
+        const response = await axios.get('http://192.168.43.21:8927/Recommendations', {
+          params:{
+            user_id: userId,
+            tags: selectedTagsString,
+            personalizationLevel: this.value
+          }
         });
 
         this.recommendations = response.data;
