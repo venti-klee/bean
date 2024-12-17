@@ -8,13 +8,13 @@
             <el-row style="height: 300px;">
               <el-col :span="6" v-for="item in displayedMovies" :key="item.id">
                 <el-card :body-style="{ padding: '0px' }" shadow="hover" style="height: 360px; position: relative;" @click="openDoubanLink(item)">
-                  <div class="card-overlay" v-show="isHovered(item)">
+                  <div class="card-overlay">
                     <div class="overlay-content">
                       <h4>{{ item.name }}</h4>
                       <p>{{ getSummary(item) }}</p>
                     </div>
                   </div>
-                  <el-image :src="item.img" fit="contain" style="height: 280px; padding: 0" @mouseover="hoverItem = item" @mouseleave="hoverItem = null" ></el-image>
+                  <el-image :src="item.img" fit="contain" style="height: 280px; padding: 0"></el-image>
                   <div class="el-card__footer" style="margin: 0;padding: 0">
                     <el-rate style="margin: 0"
                              v-model="item.convertedRate"
@@ -39,7 +39,7 @@
                 layout="total, prev, pager, next, jumper"
                 background
                 :total="totalMovies"
-                style="justify-content: center; "
+                style="justify-content: center;"
             />
           </div>
         </div>
@@ -60,7 +60,6 @@ export default {
   name: "MyMayLike3",
   data() {
     return {
-      hoverItem: null,
       movies: [],
       displayedMovies: [],
       totalMovies: 0,
@@ -75,7 +74,7 @@ export default {
     async fetchMovies() {
       try {
         const userId = JSON.parse(localStorage.getItem('user')).id; // 获取用户ID
-        const response = await axios.get('http://192.168.43.21:8927/Filtering', {
+        const response = await axios.get('http://112.124.3.24:8927/Filtering', {
           params: {
             user_id: userId
           }
@@ -89,9 +88,6 @@ export default {
       } catch (error) {
         console.error("Error fetching movies:", error);
       }
-    },
-    isHovered(item) {
-      return this.hoverItem === item;
     },
     getSummary(item) {
       if(item.summary.length===0)
@@ -129,6 +125,8 @@ export default {
 .el-card:hover {
   transform: translateY(-5px);
 }
+
+/* 修改后 */
 .card-overlay {
   position: absolute;
   top: 0;
@@ -143,22 +141,34 @@ export default {
   padding: 20px;
   box-sizing: border-box;
   z-index: 10; /* 确保遮掩层在图片上方 */
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none; /* 避免遮挡点击事件 */
 }
+
+/* 当卡片被悬停时显示遮罩层 */
+.el-card:hover .card-overlay {
+  opacity: 1;
+}
+
 .overlay-content {
   text-align: center;
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .overlay-content h4 {
   margin: 5px 0;
   font-size: 18px;
 }
+
 .overlay-content p {
   margin: 5px 0;
   font-size: 14px;
   line-height: 1.5;
 }
+
 .two {
   margin: 0 auto;
   height: 300px;

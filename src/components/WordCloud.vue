@@ -1,76 +1,89 @@
 <template>
   <div class="bestsellers-container">
-    <chart-word-cloud :options="state.chartOptions"></chart-word-cloud>
+    <div id="charts-content">
+      <chart-word-cloud v-if="state.chartOptions.series[0].data.length > 0" :options="state.chartOptions"></chart-word-cloud>
+    </div>
   </div>
 </template>
 
-<script setup>
+<script>
+import {reactive} from 'vue'
+import axios from 'axios'
 import ChartWordCloud from '@/components/SonCloud.vue'
-import { reactive } from 'vue'
-const state = reactive({
-  chartOptions: {
-    series: [{
-      data: [
-        { name: '惊悚', value: 30 },
-        { name: '爱情', value: 30 },
-        { name: '丧尸', value: 28 },
-        { name: '悬疑故事', value: 25 },
-        { name: '战争史诗', value: 15 },
-        { name: '神秘事件', value: 20 },
-        { name: '家庭剧', value: 14 },
-        { name: '友谊岁月', value: 19 },
-        { name: '励志故事', value: 11 },
-        { name: '治愈系', value: 17 },
-        { name: '幻想旅程', value: 12 },
-        { name: '魔法师', value: 10 },
-        { name: '犯罪心理', value: 9 },
-        { name: '乡村爱情', value: 10 },
-        { name: '都市传说', value: 7 },
-        { name: '旅行记录', value: 6 },
-        { name: '搞笑漫画', value: 5 },
-        { name: '校园青春', value: 15 },
-        { name: '星空探秘', value: 14 },
-        { name: '温暖瞬间', value: 16 },
-        { name: '欢乐时光', value: 14 },
-        { name: '思念的心', value: 13 },
-        { name: '期待未来', value: 12 },
-        { name: '礼物交换', value: 10 },
-        { name: '成长故事', value: 19 },
-        { name: '亲密关系', value: 17 },
-        { name: '团结力量', value: 15 },
-        { name: '快乐时光', value: 18 },
-        { name: '努力拼搏', value: 14 },
-        { name: '梦想旅程', value: 18 },
-        { name: '探索未知', value: 25 },
-        { name: '分享快乐', value: 22 },
-        { name: '真诚友谊', value: 19 },
-        { name: '希望之声', value: 18 },
-        { name: '勇敢追梦', value: 15 },
-        { name: '智慧光芒', value: 14 },
-        { name: '热爱生活', value: 6 },
-        { name: '欢笑声', value: 5 },
-        { name: '阳光下', value: 4 },
-        { name: '美好愿望', value: 3 }
-      ],
-    }],
-  },
-})
 
+export default {
+  components: {
+    ChartWordCloud
+  },
+  data() {
+    return {
+      state: reactive({
+        chartOptions: {
+          series: [{
+            type: 'wordCloud', // 确保图表类型是词云
+            data: [] // 这里应该是数据数组
+          }],
+        },
+      }),
+    }
+  },
+  // 在组件挂载时请求数据
+  created() {
+    this.fetchData()
+  },
+  methods: {
+    // 获取API数据
+    async fetchData() {
+      try {
+        const response = await axios.get('https://apifoxmock.com/m1/5395920-5069443-default/user');
+        const data = response.data;
+
+        // 假设返回的数据结构为 { user_info: [{ tags: {...} }] }
+        if (data.user_info && data.user_info.length > 0) {
+          const tags = data.user_info[0].tags;
+
+          // 将标签数据转化为词云所需的格式
+          const transformedData = [];
+          for (const tag in tags) {
+            transformedData.push({
+              name: tag,
+              value: tags[tag] * 5, // 使用标签的值作为词频（权重）
+            });
+          }
+
+          // 更新chartOptions中的data
+          this.state.chartOptions.series[0].data = transformedData;
+          console.log(this.state.chartOptions);
+        } else {
+          console.error("API响应数据不符合预期");
+        }
+      } catch (error) {
+        console.error('获取数据失败:', error);
+      }
+    }
+  },
+}
 </script>
 
 <style scoped>
 .bestsellers-container {
-  height: 600px;
-  width: 600px;
-  background:white;
-  justify-content: center; /* 水平居中 */
-  align-items: center; /* 垂直居中 */
-  margin-left: 240px;
-  margin-bottom: 20px
+  height: 550px;
+  width: 550px;
+  background: white;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 #charts-content {
-  /* 需要设置宽高后才会显示 */
   width: 100%;
   height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>
+
+
+

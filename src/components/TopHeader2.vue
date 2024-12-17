@@ -1,7 +1,7 @@
 <template>
   <div class="nav" style="padding: 0; background-color: rgba(0,0,0,0.5);">
     <div class="nav-logo" style="width: 20%;">
-      <router-link class="logo" to="/">
+      <router-link class="logo" to="/index">
         <img src="../assets/bean_logo2.png" alt="bean_logo" style="height: 60px"/>
       </router-link>
     </div>

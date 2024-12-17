@@ -39,7 +39,7 @@
               </div>
               <el-image :src="item.img" fit="cover" style="height: 240px; padding: 0"></el-image>
               <div class="el-card__footer" style="margin: 0; padding: 0">
-                <p style="font-size: 10px">{{item.summary.slice(0,80)+"..."}}</p>
+                <p style="font-size: 10px">{{ item.summary ? item.summary.slice(0, 80) + "..." : '暂无简介' }}</p>
               </div>
             </el-card>
           </el-col>
@@ -131,7 +131,7 @@ export default {
         const selectedTagsString = this.checkboxGroup1.join(',');
         console.log(selectedTagsString); // 输出类似于 "喜剧,爱情,动作"
         const userId = JSON.parse(localStorage.getItem('user')).id; // 获取用户ID
-        const response = await axios.get('http://192.168.43.21:8927/Recommendations', {
+        const response = await axios.get('http://112.124.3.24:8927/Recommendations', {
           params:{
             user_id: userId,
             tags: selectedTagsString,
@@ -140,6 +140,7 @@ export default {
         });
 
         this.recommendations = response.data;
+        console.log(this.recommendations);
       } catch (error) {
         console.error('Error fetching recommendations:', error);
       } finally {
@@ -147,7 +148,7 @@ export default {
       }
     },
     openDoubanLink(item) {
-      const doubanUrl = `https://movie.douban.com/subject/${item.movieID}/`;
+      const doubanUrl = `https://movie.douban.com/subject/${item.id}/`;
       window.open(doubanUrl, '_blank');
     }
   },

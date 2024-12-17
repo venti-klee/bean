@@ -5,17 +5,15 @@
 <script setup>
 import * as echarts from 'echarts';
 import 'echarts-wordcloud';
-import { onMounted,defineProps } from "vue";
-// 引入 lodash 中的 merge、深克隆
+import { defineProps, watch, nextTick, ref } from "vue";
 import merge from 'lodash/merge';
 
-
 const props = defineProps({
-  options:{
-    type : [String,Number,Array,Object]
+  options: {
+    type: Object,
+    required: true
   }
-})
-
+});
 
 // 词云图默认属性
 const defaultSeries = [{
@@ -26,45 +24,21 @@ const defaultSeries = [{
   top: 'center',
   width: '100%',
   height: '100%',
-  right: null,
-  bottom: null,
-  // 词云文本大小范围,  默认为最小12像素，最大60像素
-  sizeRange: [12, 60],
-  // 词云文字旋转范围和步长。 文本将通过旋转在[-90，90]范围内随机旋转步骤45
-  // 如果都设置为 0 , 则是水平显示
+  sizeRange: [25, 55],
   rotationRange: [-90, 90],
   rotationStep: 45,
-  /**
-   * 词间距, 距离越大，单词之间的间距越大, 单位像素
-   * 这里间距太小的话，会出现大词把小词套住的情况，比如一个大的口字，中间会有比较大的空隙，这时候他会把一些很小的字放在口字里面，这样的话，鼠标就无法选中里面的那个小字
-   */
   gridSize: 8,
-  // 设置为true可以使单词部分在画布之外绘制, 允许绘制大于画布大小的单词
   drawOutOfBound: false,
-  /**
-   * 布局的时候是否有动画
-   * 注意：禁用时，当单词较多时，将导致UI阻塞。
-   */
   layoutAnimation: true,
-  // 这是全局的文字样式，相对应的还可以对每个词设置字体样式
   textStyle: {
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    // 颜色可以用一个函数来返回字符串
     color: function () {
-      // 随机颜色
-      return (
-          'rgb(' +
-          [
-            Math.round(Math.random() * 250),
-            Math.round(Math.random() * 250),
-            Math.round(Math.random() * 250),
-          ].join(',') +
-          ')'
-      )
-    },
+      return 'rgb(' +
+          [Math.round(Math.random() * 250), Math.round(Math.random() * 250), Math.round(Math.random() * 250)].join(',') +
+          ')';
+    }
   },
-  // 鼠标hover的特效样式
   emphasis: {
     focus: 'self',
     textStyle: {
@@ -73,20 +47,50 @@ const defaultSeries = [{
     }
   },
   data: []
-}]
-// eslint-disable-next-line vue/no-setup-props-destructure
-let seriesData = props.options.series;
-const series = merge({}, defaultSeries[0], seriesData[0]) // {}表示合并后的新对象，可以传入一个空对象作为初始值
+}];
 
-function DrawWordCloud() {
-  // 词云
-  let mychart = echarts.init(document.getElementById("charts-content")) // 可以设置主题色'dark'
-  mychart.setOption({
-    series: series
-  })
+// 使用 ref 来存储合并后的图表配置
+const mergedSeries = ref({});
+
+// 合并父组件传递的配置
+const getMergedSeries = () => {
+  const seriesData = props.options.series || [];
+  return merge({}, defaultSeries[0], seriesData[0] || {});
 }
 
-onMounted(() => {
-  DrawWordCloud()
-})
+// 创建词云图
+const drawWordCloud = () => {
+  const myChart = echarts.init(document.getElementById("charts-content"));
+  const series = mergedSeries.value;
+  myChart.setOption({
+    series: [series] // 使用合并后的配置
+  });
+};
+
+// 使用 watch 监听 options 的变化
+watch(
+    () => props.options,
+    async () => {
+      // 只有在数据变化时更新图表
+      const mergedData = getMergedSeries();
+      if (JSON.stringify(mergedData) !== JSON.stringify(mergedSeries.value)) {
+        mergedSeries.value = mergedData;
+        await nextTick(); // 等待 DOM 更新
+        drawWordCloud(); // 重新绘制图表
+      }
+    },
+    {immediate: true} // 初次挂载时也立即执行一次
+);
+
 </script>
+
+<style scoped>
+#charts-content {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>

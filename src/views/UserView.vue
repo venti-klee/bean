@@ -4,12 +4,13 @@
       <!--      <page-content></page-content>-->
       <!--      <video-background>-->
       <!--      </video-background>-->
-      <UserNewsInfo></UserNewsInfo>
-      <!--      <TopHeader2></TopHeader2>-->
-      <hr>
-      <br>
+
+      <TopHeader2></TopHeader2>
     </div>
     <div class="content-container" >
+      <UserNewsInfo></UserNewsInfo>
+      <hr>
+      <br>
       <h1>用户画像</h1><br>
       <h2>词云</h2>
       <WordCloud></WordCloud>
@@ -18,8 +19,8 @@
       <!--    <my-may-likw></my-may-likw>-->
       <!--    <hr>-->
       <!--    <br>-->
-      <h2>气泡图</h2>
-      <Radar></Radar>
+      <h2>聚类图</h2>
+      <Tree></Tree>
       <hr>
       <br>
 
@@ -33,20 +34,23 @@
 //import VideoBackground from "@/components/VideoBackground.vue";
 // import TopHeader2 from "@/components/TopHeader2.vue";
 import WordCloud from "@/components/WordCloud.vue";
-import Radar from "@/components/RadarChart.vue";
+//import Radar from "@/components/RadarChart.vue";
 import AppFooter from "@/components/AppFooter.vue";
 import UserNewsInfo from "@/components/UserInfo.vue";
+import Tree from "@/components/UserTree.vue"
+import TopHeader2 from "@/components/TopHeader2.vue";
 //import WordCloud from '@/components/WordCloud.vue'
 export default {
   name: 'UserView',
   components: {
+    TopHeader2,
     AppFooter,
     // TopHeader2,
     UserNewsInfo,
     //VideoBackground,
     //PageContent,
     WordCloud,
-    Radar
+    Tree
   },
 }
 </script>
