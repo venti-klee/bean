@@ -46,7 +46,13 @@ export default {
   methods: {
     async fetchUserInfo() {
       try {
-        const response = await axios.get('https://apifoxmock.com/m1/5395920-5069443-default/user');
+        const userId = JSON.parse(localStorage.getItem('user')).id;
+        const response = await axios.get('http://112.124.3.24:8927/UserPortrait', {
+          params: {
+            user_id: userId
+          }
+        });
+        //const response = await axios.get('https://apifoxmock.com/m1/5395920-5069443-default/user');
         if (response.data && response.data.user_info && response.data.user_info.length) {
           this.user_info = response.data.user_info[0]; // 假设返回的数据结构与提供的JSON一致
         } else {

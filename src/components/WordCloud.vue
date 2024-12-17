@@ -35,7 +35,13 @@ export default {
     // 获取API数据
     async fetchData() {
       try {
-        const response = await axios.get('https://apifoxmock.com/m1/5395920-5069443-default/user');
+        const userId = JSON.parse(localStorage.getItem('user')).id;
+        const response = await axios.get('http://112.124.3.24:8927/UserPortrait', {
+          params: {
+            user_id: userId
+          }
+        });
+        //const response = await axios.get('http://112.124.3.24:8927/UserPortrait');
         const data = response.data;
 
         // 假设返回的数据结构为 { user_info: [{ tags: {...} }] }

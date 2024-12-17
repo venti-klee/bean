@@ -16,6 +16,7 @@
 <script>
 import * as echarts from 'echarts';
 import { ElCarousel, ElCarouselItem } from 'element-plus';
+import axios from "axios";
 
 export default {
   name: 'TreemapMovieWithParent',
@@ -40,7 +41,15 @@ export default {
   methods: {
     async fetchData() {
       try {
-        const response = await fetch('https://apifoxmock.com/m1/5395920-5069443-default/user');
+        const userId = JSON.parse(localStorage.getItem('user')).id;
+        const response = await axios.get('http://112.124.3.24:8927/UserPortrait', {
+          params: {
+            user_id: userId
+          }
+        });
+        console.log("respose");
+        console.log(response);
+        //const response = await fetch('http://112.124.3.24:8927/UserPortrait');
         const data = await response.json();
         this.movieData.children = data.user_portraits.map(cluster => ({
           name: `类${cluster.cluster_id}`,
