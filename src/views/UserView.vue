@@ -19,7 +19,7 @@
       <!--    <my-may-likw></my-may-likw>-->
       <!--    <hr>-->
       <!--    <br>-->
-      <h2>聚类图</h2>
+      <h2>电影主题类展示</h2>
       <Tree></Tree>
       <hr>
       <br>

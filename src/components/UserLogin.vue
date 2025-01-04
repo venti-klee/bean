@@ -72,10 +72,13 @@ export default {
   <h2>拌豆bean，欢迎您！</h2>
 
   <h4>在这里登录您的账户！</h4>
+  <p>注意：账号格式为“user”+数字，其中数字编号为1-3327，密码格式没有限制不为空即可</p>
   <form @submit.prevent=onSubmit>
     <p>账号：</p>
+
     <input v-model="account" type="text" placeholder="请输入账号" required />
     <p>密码：</p>
+
     <input v-model="password" type="password" placeholder="请输入密码" required />
     <button type="submit">登录
     </button>

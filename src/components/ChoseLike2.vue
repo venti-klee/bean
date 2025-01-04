@@ -37,9 +37,17 @@
               <div class="card-header" style="height: 40px">
                 <h4>{{ item.name }}</h4>
               </div>
-              <el-image :src="item.img" fit="cover" style="height: 240px; padding: 0"></el-image>
+              <el-image :src="item.img" fit="cover" style="height: 240px; padding: 0">
+                <template #error>
+                  <div class="image-slot" style="text-align: center;justify-content: center " >
+                    <h1> {{item.name}} </h1>
+
+                  </div>
+                </template>
+              </el-image>
               <div class="el-card__footer" style="margin: 0; padding: 0">
-                <p style="font-size: 10px">{{ item.summary ? item.summary.slice(0, 80) + "..." : '暂无简介' }}</p>
+                <el-tag>{{ item.genre ? item.genre :'暂无标签' }}</el-tag>
+                <p style="font-size: 10px">{{ item.summary ? item.summary.slice(0, 60) + "..." : '暂无简介' }}</p>
               </div>
             </el-card>
           </el-col>
@@ -170,6 +178,8 @@ export default {
 .two {
   margin: 0 auto;
   height: 300px;
+  writing-mode: vertical-lr; /*从左向右 从右向左是 writing-mode: vertical-rl;*/
+  writing-mode: tb-lr; /*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
 }
 
 /* 自定义加载样式 */

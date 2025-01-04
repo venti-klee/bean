@@ -4,8 +4,8 @@
       <el-row :gutter="1"> <!-- 缩小列之间的间距 -->
         <el-col :span="12">
           <div class="avatar-container">
-            <el-avatar :size="200" class="avatar-center">{{ user_info ? 'user' : '' }}</el-avatar>
-            <div class="username">{{ user_info ? user_info.username || 'user' : 'user' }}</div>
+            <el-avatar :size="200" class="avatar-center">{{ user_id ? user_id : 'user' }}</el-avatar>
+            <div class="username">{{ user_info ? user_info.username || 'user'+user_id : 'user' }}</div>
             <div class="fans">观看电影数量：{{ user_info ? user_info.num : '未知' }}</div>
           </div>
         </el-col>
@@ -25,7 +25,8 @@ export default {
   name: "UserNewsInfo",
   data() {
     return {
-      user_info: null // 存储从API获取的用户信息
+      user_info: null ,// 存储从API获取的用户信息
+      user_id: null
     };
   },
   created() {
@@ -47,6 +48,7 @@ export default {
     async fetchUserInfo() {
       try {
         const userId = JSON.parse(localStorage.getItem('user')).id;
+        this.user_id=userId;
         const response = await axios.get('http://112.124.3.24:8927/UserPortrait', {
           params: {
             user_id: userId
@@ -55,6 +57,8 @@ export default {
         //const response = await axios.get('https://apifoxmock.com/m1/5395920-5069443-default/user');
         if (response.data && response.data.user_info && response.data.user_info.length) {
           this.user_info = response.data.user_info[0]; // 假设返回的数据结构与提供的JSON一致
+          console.log("user_info")
+          console.log(this.user_info)
         } else {
           console.error("API响应数据不符合预期");
         }

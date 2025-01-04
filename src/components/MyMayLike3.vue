@@ -7,14 +7,22 @@
           <div style="height: 750px">
             <el-row style="height: 300px;">
               <el-col :span="6" v-for="item in displayedMovies" :key="item.id">
-                <el-card :body-style="{ padding: '0px' }" shadow="hover" style="height: 360px; position: relative;" @click="openDoubanLink(item)">
+                <el-card :body-style="{ padding: '0px' }" shadow="hover" style="height: 370px; position: relative;" @click="openDoubanLink(item)">
                   <div class="card-overlay">
                     <div class="overlay-content">
                       <h4>{{ item.name }}</h4>
                       <p>{{ getSummary(item) }}</p>
                     </div>
                   </div>
-                  <el-image :src="item.img" fit="contain" style="height: 280px; padding: 0"></el-image>
+                  <el-image :src="item.img" fit="contain" style="height: 260px; padding: 0">
+                    <template #error>
+                      <div class="image-slot" style="text-align: center;justify-content: center ;height: 280px" >
+                        <h1> {{item.name}} </h1>
+
+                      </div>
+                    </template>
+                  </el-image>
+
                   <div class="el-card__footer" style="margin: 0;padding: 0">
                     <el-rate style="margin: 0"
                              v-model="item.convertedRate"
@@ -23,7 +31,10 @@
                              text-color="#ff9900"
                              :score-template="`${item.rate} `"
                     />
+                    <br>
+                    <el-tag>{{ item.genre ? item.genre :'暂无标签' }}</el-tag>
                     <h4 style="margin: 0">{{ item.name }}</h4>
+
                   </div>
                 </el-card>
               </el-col>
@@ -79,6 +90,8 @@ export default {
             user_id: userId
           }
         });
+        console.log("response")
+        console.log(response)
         this.movies = response.data.map(item => ({
           ...item,
           convertedRate: item.rate / 2
