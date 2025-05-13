@@ -1,5 +1,5 @@
 # bean
-
+(｡･∀･)ﾉﾞ嗨 这里是拌豆bean
 ## Project setup
 ```
 npm install
